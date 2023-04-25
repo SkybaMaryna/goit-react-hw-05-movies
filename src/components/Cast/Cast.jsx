@@ -5,7 +5,6 @@ import { fetchMoviesCast } from 'services/moviesAPI';
 const Cast = () => {
   const [castList, setCastList] = useState([]);
   const { movieId } = useParams();
-  const location = useLocation();
 
   useEffect(() => {
     fetchMoviesCast(movieId).then(setCastList);
