@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { fetchMoviesReview } from 'services/moviesAPI';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const { movieId } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     fetchMoviesReview(movieId).then(setReviews);

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { fetchMoviesCast } from 'services/moviesAPI';
 
 const Cast = () => {
   const [castList, setCastList] = useState([]);
   const { movieId } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     fetchMoviesCast(movieId).then(setCastList);

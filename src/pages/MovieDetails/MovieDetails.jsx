@@ -15,6 +15,8 @@ const MovieDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  console.log(location);
+
   useEffect(() => {
     fetchMoviesById(movieId).then(setMovie);
   }, [movieId]);
@@ -60,9 +62,13 @@ const MovieDetails = () => {
       )}
       <>
         <h4>Additional information</h4>
-        <Link to="cast">Cast</Link>
+        <Link to="cast" state={location.state}>
+          Cast
+        </Link>
         <br />
-        <Link to="reviews">Reviews</Link>
+        <Link to="reviews" state={location.state}>
+          Reviews
+        </Link>
       </>
       <Outlet />
     </>

@@ -7,6 +7,7 @@ const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const movieName = searchParams.get('movieName');
   const location = useLocation();
+  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
     if (!movieName) {
@@ -18,27 +19,31 @@ const MoviesPage = () => {
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
-    setSearchParams({ movieName: form.elements.movieName.value });
+    setSearchParams({ movieName: form.elements.movieName.value.trim() });
     form.reset();
+  };
+
+  const handleChange = e => {
+    const { value } = e.target;
+    setInputValue(value.toLowerCase().trim());
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="movieName"></input>
-        <button>Search</button>
+        <input type="text" name="movieName" onChange={handleChange}></input>
+        <button disabled={inputValue ? false : true}>Search</button>
       </form>
-      {movies && (
-        <ul>
-          {movies.map(({ id, original_title }) => (
-            <li key={id}>
-              <Link to={`/movies/${id}`} state={{ from: location }}>
-                {original_title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+
+      <ul>
+        {movies.map(({ id, original_title }) => (
+          <li key={id}>
+            <Link to={`/movies/${id}`} state={{ from: location }}>
+              {original_title}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };
